@@ -26,7 +26,10 @@ if uploaded_file is not None:
     h, w = blurred.shape
     center_y = int(h / 2)
     y_start, y_end = max(0, center_y - 100), min(h, center_y + 100)
-    crop_area = blurred[y_start:y_end, :]
+    # ✅ 修改後的新寫法 (限制水平寬度，自動 Crop 刮痕局部)
+    center_x = int(w / 2)
+    x_start, x_end = max(0, center_x - 150), min(w, center_x + 150)
+    crop_area = blurred[y_start:y_end, x_start:x_end]
     
     # 模擬 ImageJ 的 Line Width 平均：對垂直軸做數學平均，消除水平網格
     profile_data = np.mean(crop_area, axis=0)

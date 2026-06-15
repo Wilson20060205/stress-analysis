@@ -38,9 +38,9 @@ if uploaded_file is not None:
     smooth_profile = np.convolve(profile_data, np.ones(11)/11, mode='same')
     
     # 尋找核心特徵值 (抓圖形中央區段，排除邊緣陰影干擾)
-    analysis_zone = smooth_profile[int(w*0.15):int(w*0.85)]
-    valley_val = np.min(analysis_zone)                     # 谷底 (刮痕本體)
-    peak_val = np.max(analysis_zone)                       # 峰頂 (應力集中區)
+   # ✅ 新的寫法：直接分析完整平滑曲線，絕對不會出錯
+    valley_val = np.min(smooth_profile)                     # 抓出整段最低的谷底
+    peak_val = np.max(smooth_profile)                       # 抓出整段最高的高峰
     delta_H = max(0, peak_val - valley_val)
     
     # 6. 【精準定標實驗公式】結合 1kg(3.8)、3kg(8.5)、5kg(14.0) 三點實驗公式

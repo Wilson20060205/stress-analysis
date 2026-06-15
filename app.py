@@ -65,6 +65,11 @@ if uploaded_file is not None:
         ax.set_xlabel("Distance (pixels)")
         ax.set_ylabel("Gray Value")
         ax.grid(True, linestyle='--', alpha=0.5)
+        # ✅ 新增這兩行：動態鎖定 Y 軸在數據的上下限，自動放大訊號！
+        y_min, y_max = np.min(smooth_profile[15:-15]), np.max(smooth_profile[15:-15])
+        ax.set_ylim(y_min - 5, y_max + 5) # 排除邊緣斷崖干擾，上下留 5 個單位的空隙
+        
+        ax.set_title("Stress Profile Analysis (ImageJ Auto)")
         st.pyplot(fig)
         
     # 8. 炫酷的科學結論噴出

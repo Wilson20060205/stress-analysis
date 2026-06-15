@@ -38,10 +38,10 @@ if uploaded_file is not None:
     smooth_profile = np.convolve(profile_data, np.ones(11)/11, mode='same')
     
     # 尋找核心特徵值 (抓圖形中央區段，排除邊緣陰影干擾)
-# ✅ 新的寫法：[30:-30] 代表自動切掉左右各 30 像素的斷崖，只抓中央精華訊號！
-safe_zone = smooth_profile[30:-30]
-valley_val = np.min(safe_zone)                     # 抓出精華區真正的刮痕谷底 (約182)
-peak_val = np.max(safe_zone)                       # 抓出精華區真正的應力高峰 (約194)
+    # ✅ 新的寫法：[30:-30] 代表自動切掉左右各 30 像素的斷崖，只抓中央精華訊號！
+    safe_zone = smooth_profile[30:-30]
+    valley_val = np.min(safe_zone)                     # 抓出精華區真正的刮痕谷底 (約182)
+    peak_val = np.max(safe_zone)                       # 抓出精華區真正的應力高峰 (約194)
     delta_H = max(0, peak_val - valley_val)
     
     # 6. 【精準定標實驗公式】結合 1kg(3.8)、3kg(8.5)、5kg(14.0) 三點實驗公式
